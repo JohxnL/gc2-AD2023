@@ -26,6 +26,9 @@ CDemoTexture::CDemoTexture()
     //Terxture and Sampler
     m_ColorMap = NULL;
     m_pSampler = NULL;
+
+    m_ColorMap2 = NULL;
+
 }
 
 CDemoTexture::~CDemoTexture()
@@ -70,8 +73,8 @@ bool CDemoTexture::LoadContent()
     // Crear diseño de entrada
     hr = m_pD3DDevice->CreateInputLayout(
         shaderInputLayout, numLayoutElements,
-        pVSBuffer->GetBufferPointer(), 
-        pVSBuffer->GetBufferSize(), 
+        pVSBuffer->GetBufferPointer(),
+        pVSBuffer->GetBufferSize(),
         &m_pInputLayout);
     if (FAILED(hr)) {
         return false;
@@ -92,7 +95,7 @@ bool CDemoTexture::LoadContent()
     // Creamos el pixel shader
     hr = m_pD3DDevice->CreatePixelShader(
         pPSBuffer->GetBufferPointer(),
-        pPSBuffer->GetBufferSize(), 
+        pPSBuffer->GetBufferSize(),
         0, &m_pPS);
     if (FAILED(hr)) {
         return false;
@@ -106,13 +109,13 @@ bool CDemoTexture::LoadContent()
     // Definir CUADRADO
     Vertex vertices[] =
     {
-        { XMFLOAT3(  0.4f,  0.5f, 0.0f ), XMFLOAT2(1.0f, 0.0f) },
-        { XMFLOAT3(  0.4f, -0.5f, 0.0f ), XMFLOAT2(1.0f, 1.0f) },
-        { XMFLOAT3( -0.4f, -0.5f, 0.0f ), XMFLOAT2(0.0f, 1.0f)},
+        { XMFLOAT3(0.4f,  0.5f, 0.0f), XMFLOAT2(1.0f, 0.0f) },
+        { XMFLOAT3(0.4f, -0.5f, 0.0f), XMFLOAT2(1.0f, 1.0f) },
+        { XMFLOAT3(-0.4f, -0.5f, 0.0f), XMFLOAT2(0.0f, 1.0f)},
 
-        { XMFLOAT3( -0.4f, -0.5f, 0.0f ), XMFLOAT2(0.0f, 1.0f) },
-        { XMFLOAT3( -0.4f,  0.5f, 0.0f ), XMFLOAT2(0.0f, 0.0f) },
-        { XMFLOAT3(  0.4f,  0.5f, 0.0f ), XMFLOAT2(1.0f, 0.0f) },
+        { XMFLOAT3(-0.4f, -0.5f, 0.0f), XMFLOAT2(0.0f, 1.0f) },
+        { XMFLOAT3(-0.4f,  0.5f, 0.0f), XMFLOAT2(0.0f, 0.0f) },
+        { XMFLOAT3(0.4f,  0.5f, 0.0f), XMFLOAT2(1.0f, 0.0f) },
     };
 
     // Descripción del vértice
@@ -133,13 +136,20 @@ bool CDemoTexture::LoadContent()
         return false;
     }
 
-    // Cargamos la textura
-    hr = ::D3DX11CreateShaderResourceViewFromFile(m_pD3DDevice, L"Recursos/texture.jpg", 0, 0, &m_ColorMap, 0);
+
+    // Cargamos la textura 1
+    hr = ::D3DX11CreateShaderResourceViewFromFile(m_pD3DDevice, L"Recursos/water_tx.jpg", 0, 0, &m_ColorMap, 0);
     if (FAILED(hr)) {
         ::MessageBox(m_hWnd, L"Error al cargar la textura", L"Error", MB_OK);
         return false;
     }
 
+    // cargamos la textura 2
+    hr = ::D3DX11CreateShaderResourceViewFromFile(m_pD3DDevice, L"Recursos/texture.jpg", 0, 0, &m_ColorMap2, 0);
+    if (FAILED(hr)) {
+        ::MessageBox(m_hWnd, L"Error al cargar la textura2", L"Error", MB_OK);
+        return false;
+    }
     // Texture sampler
     D3D11_SAMPLER_DESC samplerDesc;
     ::ZeroMemory(&samplerDesc, sizeof(samplerDesc));
@@ -173,10 +183,16 @@ void CDemoTexture::UnloadContent()
     if (m_pVertexBuffer)
         m_pVertexBuffer->Release();
     m_pVertexBuffer = NULL;
-    //Terxture and Sampler
+
+
+    //Texture and Sampler
     if (m_ColorMap)
         m_ColorMap->Release();
     m_ColorMap = NULL;
+
+    if (m_ColorMap2)
+        m_ColorMap2->Release();
+    m_ColorMap2 = NULL;
 
     if (m_pSampler)
         m_pSampler->Release();
@@ -213,6 +229,7 @@ void CDemoTexture::Render()
 
     //Set Texture
     m_pD3DContext->PSSetShaderResources(0, 1, &m_ColorMap);
+    m_pD3DContext->PSSetShaderResources(1, 1, &m_ColorMap2);
     m_pD3DContext->PSSetSamplers(0, 1, &m_pSampler);
 
     // Draw triangles

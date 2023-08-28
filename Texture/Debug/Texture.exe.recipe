@@ -2,15 +2,15 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Usuario\Documents\Graficas2-AD2023\gc2-AD2023\Texture\Debug\Texture.exe</FullPath>
+      <FullPath>D:\Documentos\UNIVERSIDAD\Universidad Agosto - Diciembre 2023\Gráficas computacionales ll\Git_Repositorio_Graficas2\gc2-AD2023\Texture\Debug\Texture.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>C:\Users\Usuario\Documents\Graficas2-AD2023\gc2-AD2023\Texture\Debug\PixelShader.cso</FullPath>
+      <FullPath>D:\Documentos\UNIVERSIDAD\Universidad Agosto - Diciembre 2023\Gráficas computacionales ll\Git_Repositorio_Graficas2\gc2-AD2023\Texture\Debug\PixelShader.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\Usuario\Documents\Graficas2-AD2023\gc2-AD2023\Texture\Debug\VertexShader.cso</FullPath>
+      <FullPath>D:\Documentos\UNIVERSIDAD\Universidad Agosto - Diciembre 2023\Gráficas computacionales ll\Git_Repositorio_Graficas2\gc2-AD2023\Texture\Debug\VertexShader.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
